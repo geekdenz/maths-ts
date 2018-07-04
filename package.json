@@ -1,0 +1,38 @@
+{
+  "name": "ts-library-boilerplate",
+  "version": "1.0.0",
+  "description": "A TS library bootstrap/boilerplate.",
+  "main": "index.js",
+  "scripts": {
+    "test": "ts-mocha -p . test/*.ts",
+    "watch:test": "nodemon --exec \"ts-mocha -p . test/*.ts\"",
+    "watch:tsc": "tsc -w",
+    "min": "java -jar ./node_modules/google-closure-compiler/compiler.jar < index.js > my-library.min.js"
+  },
+  "keywords": [
+    "tree",
+    "higher",
+    "order",
+    "functions",
+    "array",
+    "values",
+    "minimalist"
+  ],
+  "author": "Tim-Hinnerk Heuer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/geekdenz/tree-hof"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/expect": "^1.20.2",
+    "@types/mocha": "^2.2.48",
+    "closure-compiler-wrapper": "^1.1.3",
+    "expect": "^22.1.0",
+    "mocha": "^5.0.0",
+    "nodemon": "^1.14.12",
+    "ts-mocha": "^1.1.0",
+    "typescript": "^2.7.1"
+  },
+  "dependencies": {}
+}
