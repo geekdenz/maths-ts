@@ -1,7 +1,7 @@
 {
-  "name": "ts-library-boilerplate",
+  "name": "maths-ts",
   "version": "1.0.0",
-  "description": "A TS library bootstrap/boilerplate.",
+  "description": "Mathematics library for Machine Learning or other Vector, Matrices operations.",
   "main": "index.js",
   "scripts": {
     "test": "ts-mocha -p . test/*.ts",
@@ -10,18 +10,15 @@
     "min": "java -jar ./node_modules/google-closure-compiler/compiler.jar < index.js > my-library.min.js"
   },
   "keywords": [
-    "tree",
-    "higher",
-    "order",
-    "functions",
-    "array",
-    "values",
-    "minimalist"
+    "mathematics",
+    "vector",
+    "matrix",
+    "operations"
   ],
   "author": "Tim-Hinnerk Heuer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/geekdenz/tree-hof"
+    "url": "https://github.com/geekdenz/maths-ts"
   },
   "license": "MIT",
   "devDependencies": {
