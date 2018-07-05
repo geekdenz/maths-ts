@@ -6,13 +6,16 @@ export interface Minus <T> extends Operation<T> {
   minus(other: T): T
 }
 export interface Multiply <T> extends Operation<T> {
-  mult(other: T): T
+  mult(magnitudeScalar: Scalar | number): T
+}
+export interface Dot <T> extends Operation<T> {
+  dot(other: T): Scalar | number
 }
 export interface Divide <T> extends Operation<T> {
   div(other: T): T
 }
 export interface BasicArithmetic <T> extends Plus<T>, Minus<T>, Multiply<T>, Divide<T> {}
-export interface VectorArithmetic extends Plus<Vector>, Minus<Vector>, Multiply<Vector> {}
+export interface VectorArithmetic extends Plus<Vector>, Minus<Vector>, Multiply<Vector>, Dot<Vector> {}
 export class Scalar implements BasicArithmetic<Scalar> {
   constructor(protected _value: number = 0) {}
   get value(): number {
@@ -27,14 +30,16 @@ export class Scalar implements BasicArithmetic<Scalar> {
   minus(other: Scalar): Scalar {
     return new Scalar(this._value - other.value)
   }
-  mult(other: Scalar): Scalar {
-    return new Scalar(this._value * other.value)
+  mult(other: Scalar | number): Scalar {
+    const n = other instanceof Scalar ? other.value : other
+    return new Scalar(this._value * n)
   }
   div(other: Scalar): Scalar {
     return new Scalar(this._value / other.value)
   }
-  equals(other: Scalar): boolean {
-    return this._value === other.value
+  equals(other: Scalar | number): boolean {
+    const otherNumber = other instanceof Scalar ? other.value : other
+    return this._value === otherNumber
   }
 }
 export interface OperatorFunction<T> {
@@ -77,8 +82,11 @@ export class Vector implements VectorArithmetic {
   minus(other: Vector): Vector {
     return this.map(other, (a, b) => a.minus(b))
   }
-  mult(other: Vector): Vector {
-    return this.map(other, (a, b) => a.mult(b))
+  dot(other: Vector): Scalar {
+    return this.map(other, (a, b) => a.mult(b)).array.reduce((a, s) => a.plus(s), new Scalar(0))
+  }
+  mult(magnitude: Scalar | number): Vector {
+    return new Vector(this.array.map(component => component.mult(magnitude)))
   }
 }
 

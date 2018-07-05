@@ -32,13 +32,15 @@ var Scalar = /** @class */ (function () {
         return new Scalar(this._value - other.value);
     };
     Scalar.prototype.mult = function (other) {
-        return new Scalar(this._value * other.value);
+        var n = other instanceof Scalar ? other.value : other;
+        return new Scalar(this._value * n);
     };
     Scalar.prototype.div = function (other) {
         return new Scalar(this._value / other.value);
     };
     Scalar.prototype.equals = function (other) {
-        return this._value === other.value;
+        var otherNumber = other instanceof Scalar ? other.value : other;
+        return this._value === otherNumber;
     };
     return Scalar;
 }());
@@ -77,8 +79,11 @@ var Vector = /** @class */ (function () {
     Vector.prototype.minus = function (other) {
         return this.map(other, function (a, b) { return a.minus(b); });
     };
-    Vector.prototype.mult = function (other) {
-        return this.map(other, function (a, b) { return a.mult(b); });
+    Vector.prototype.dot = function (other) {
+        return this.map(other, function (a, b) { return a.mult(b); }).array.reduce(function (a, s) { return a.plus(s); }, new Scalar(0));
+    };
+    Vector.prototype.mult = function (magnitude) {
+        return new Vector(this.array.map(function (component) { return component.mult(magnitude); }));
     };
     return Vector;
 }());
