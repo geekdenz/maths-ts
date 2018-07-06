@@ -28,5 +28,27 @@ describe('maths-ts library', function () {
             expect(a.dot(b).equals(aDotB)).toBe(true);
         });
     });
+    describe('Matrix', function () {
+        it('should do basic operations (plus, mult)', function () {
+            var A = new math.Matrix([
+                [2, 3],
+                [4, 5]
+            ]);
+            var B = new math.Matrix([
+                [3, 8],
+                [-2, 3]
+            ]);
+            var APlusB = new math.Matrix([
+                [5, 11],
+                [2, 8]
+            ]);
+            var ATimes2 = new math.Matrix([
+                [4, 6],
+                [8, 10]
+            ]);
+            expect(A.plus(B)).toEqual(APlusB);
+            expect(A.mult(2)).toEqual(ATimes2);
+        });
+    });
 });
 //# sourceMappingURL=test.js.map
